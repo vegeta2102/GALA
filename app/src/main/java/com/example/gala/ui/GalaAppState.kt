@@ -1,0 +1,61 @@
+package com.example.gala.ui
+
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.navigation.NavDestination
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.example.data.repository.UserRepository
+import com.example.data.utils.NetworkMonitor
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.WhileSubscribed
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+
+@Stable
+class GalaAppState(
+    private val navController: NavHostController,
+    private val coroutineScope: CoroutineScope,
+    private val networkMonitor: NetworkMonitor,
+    val userRepository: UserRepository,
+) {
+    val currentDestination: NavDestination?
+        @Composable get() = navController.currentBackStackEntryAsState().value?.destination
+
+    val isOffline = networkMonitor.isOnline
+        .map(Boolean::not)
+        .stateIn(
+            scope = coroutineScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = false,
+        )
+
+    val topLevelDestinations : List<TopLevelDestination> = TopLevelDestination.entries
+
+}
+
+@Composable
+fun rememberGalaAppState(
+    networkMonitor: NetworkMonitor,
+    userRepository: UserRepository,
+    coroutineScope: CoroutineScope = rememberCoroutineScope(),
+    navController: NavHostController = rememberNavController(),
+): GalaAppState {
+    return remember(
+        navController,
+        networkMonitor,
+        coroutineScope,
+        userRepository
+    ) {
+        GalaAppState(
+            navController = navController,
+            networkMonitor = networkMonitor,
+            userRepository = userRepository,
+            coroutineScope = coroutineScope,
+        )
+    }
+}

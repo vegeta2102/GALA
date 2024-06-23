@@ -1,14 +1,23 @@
-- Show full text without crop in Column.paint
+1. Show full text without crop in Column.paint
 contentScale = ContentScale.Crop
 
-- 我々はwebpのようなラスター画像をリソースとして用意するときに、drawable-xxhdpi サイズ１つに対して画像を用意しています。
+2. Note when create new webp image
+我々はwebpのようなラスター画像をリソースとして用意するときに、drawable-xxhdpi サイズ１つに対して画像を用意しています。
 なので、プロジェクト側で用意する場合は、ほかと同様にdrawable-xxhdpi １つに対して用意していただきたいです :pray:
 ちなみに webp 画像の圧縮率には特に指定はなくて、鮮明に画像が見える状態であれば問題ないです
+3. Get full log crash
+   adb logcat --buffer=crash
+4. java install command
+   brew install openjdk@21
+   The java version in mac should be same in Gradle setting Android Studio
+5. 
 
-- Get full log crash
-
-adb logcat --buffer=crash 
-
-We are using HCE Framework to implment the GroupTalk feature in our product and provide to all end user. Using this feature on Android 15 with 16kb support will make app crash.
-Base on Android Develop page annoucement , the Android 15 device will be official release in this year Steptember.
-In order to support users of Android 15 devices, we would appreciate it if you could fix this as soon as possible.
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+}
+For a library:
+plugins {
+    id "com.android.library"
+    id "kotlin-android"
+} 

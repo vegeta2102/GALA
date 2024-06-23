@@ -20,9 +20,14 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "gala"
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
 include(":cores")
 include(":feature")
 include(":feature:home")
 include(":cores:domain")
 include(":cores:data")
+include(":cores:component")
+include(":feature:settings")
+include(":feature:news")
