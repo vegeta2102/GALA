@@ -72,7 +72,7 @@ class GalaNavigationSuiteScope constructor(
             }
         },
         label = label,
-        // colors = navigationSuiteItemColors,
+        colors = navigationSuiteItemColors,
         modifier = modifier,
     )
 }
