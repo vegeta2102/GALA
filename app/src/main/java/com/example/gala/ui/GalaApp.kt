@@ -14,6 +14,7 @@ import androidx.compose.material3.NavigationRailItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
@@ -37,6 +38,8 @@ import com.example.component.GalaNavigationDefaults
 import com.example.component.GalaNavigationSuiteScaffold
 import com.example.component.GalaNavigationSuiteScope
 import com.example.gala.R
+import com.example.gala.navigation.GalaNavHost
+import timber.log.Timber
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -63,10 +66,11 @@ fun GalaApp(
             appState.topLevelDestinations.forEach { destination ->
                 val selected = currentDestination
                     .isTopLevelDestinationInHierarchy(destination)
+                Timber.d("#### des: ${destination.name}, selected $selected")
                 item(
                     selected = selected,
                     onClick = {
-                        // TODO
+                        appState.navigateToTopLevelDestination(destination)
                     },
                     icon = {
                         Icon(
@@ -88,6 +92,13 @@ fun GalaApp(
 
         Scaffold { padding ->
             Text(text = "Hello", Modifier.padding(padding))
+            GalaNavHost(appState = appState, onShowSnackbar = { mess, action ->
+                snackbarHostState.showSnackbar(
+                    message = mess,
+                    actionLabel = action,
+                    duration = SnackbarDuration.Short
+                ) == SnackbarResult.ActionPerformed
+            })
         }
 
     }

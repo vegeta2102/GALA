@@ -1,12 +1,14 @@
 package com.example.component
 
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.NavigationRailItemDefaults
+import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.WindowAdaptiveInfo
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
@@ -19,6 +21,7 @@ import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -76,6 +79,7 @@ class GalaNavigationSuiteScope constructor(
         modifier = modifier,
     )
 }
+
 @OptIn(
     ExperimentalMaterial3AdaptiveNavigationSuiteApi::class,
     ExperimentalMaterial3AdaptiveApi::class,
@@ -155,4 +159,41 @@ object GalaNavigationDefaults {
 
     @Composable
     fun navigationIndicatorColor() = MaterialTheme.colorScheme.primaryContainer
+}
+
+@Preview
+@Composable
+fun GalaNavigationBarPreview() {
+    val items = listOf("Home", "News", "Setting")
+    val icons = listOf(
+        GalaIcons.Home,
+        GalaIcons.News,
+        GalaIcons.Settings,
+    )
+    val selectedIcons = listOf(
+        GalaIcons.Home,
+        GalaIcons.News,
+        GalaIcons.Settings,
+    )
+    GalaNavigationBar {
+        items.forEachIndexed { index, item ->
+            GalaNavigationBarItem(
+                icon = {
+                    Icon(
+                        imageVector = icons[index],
+                        contentDescription = item,
+                    )
+                },
+                selectedIcon = {
+                    Icon(
+                        imageVector = selectedIcons[index],
+                        contentDescription = item,
+                    )
+                },
+                label = { Text(item) },
+                selected = index == 0,
+                onClick = { },
+            )
+        }
+    }
 }

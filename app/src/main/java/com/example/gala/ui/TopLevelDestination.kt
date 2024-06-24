@@ -34,20 +34,20 @@ enum class TopLevelDestination(
     val titleTextId: Int,
 ) {
     HOME(
-        selectedIcon = GalaIcons.Upcoming,
-        unselectedIcon = GalaIcons.UpcomingBorder,
+        selectedIcon = GalaIcons.Home,
+        unselectedIcon = GalaIcons.HomeBorder,
         iconTextId = homeR.string.tab_home,
         titleTextId = homeR.string.tab_home,
     ),
     NEW(
-        selectedIcon = GalaIcons.Bookmarks,
-        unselectedIcon = GalaIcons.BookmarksBorder,
+        selectedIcon = GalaIcons.News,
+        unselectedIcon = GalaIcons.NewsBorder,
         iconTextId = newsR.string.tab_news,
         titleTextId = newsR.string.tab_news,
     ),
     SETTING(
-        selectedIcon = GalaIcons.Grid3x3,
-        unselectedIcon = GalaIcons.Grid3x3,
+        selectedIcon = GalaIcons.Settings,
+        unselectedIcon = GalaIcons.SettingsBorder,
         iconTextId = settingR.string.tab_setting,
         titleTextId = settingR.string.tab_setting,
     ),
